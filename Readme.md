@@ -6,4 +6,6 @@ What are the things i have install through out to my project yet...
 3. dotenv
 4. nodemon
 5. prettier
+6. cookie-parser
+7. cors
 
