@@ -1,15 +1,27 @@
-import express from "express"
-import cors from "cors"
-import cookieParser from "cookie-parser"
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
-const app=express()
+const app = express();
 
+// Middlewares
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
-    credentials:true
-}))
+  origin: process.env.CORS_ORIGIN,
+  credentials: true
+}));
 
-app.use(express.json({limit:"16kb"}))
-app.use(express.urlencoded({extented:true, limit:"16kb"}))
-app.use(express.static("public"))
-export{app}
+app.use(express.json({ limit: "16kb" }));
+app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(express.static("public"));
+app.use(cookieParser());
+
+// Simple health route
+app.get("/", (req, res) => {
+  res.send("🚀 Backend is running successfully!");
+});
+
+// Routes import
+import userRouter from "./routes/user.routes.js";
+app.use("/api/v1/users", userRouter);
+
+export default app;
